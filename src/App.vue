@@ -1,75 +1,25 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-aside style="backgroundColor:skyblue;">
-        <span class="siderbarBox">
-          <Sidebar/>
-        </span>
-      </el-aside>
-      <el-container>
-        <el-header style="backgroundColor:coral" height="83px">
-          <Header/>
-        </el-header>
-        <el-main>
-          <AppMain/>
-        </el-main>
-      </el-container>
-    </el-container>
-  </div>
+    <!-- <Layout/> -->
+    <router-view></router-view>
 </template>
   
 <script>
-  import Header from './layout/Header/Header.vue'
-  import Sidebar from './layout/components/Sidebar/index.vue'
-  import AppMain from './views/AppMain.vue'
-  import PubSub from 'pubsub-js'
-import { nextTick } from '@vue/runtime-core'
+  import Layout from './layout/index.vue'
+  import Login from './pages/Login/index.vue'
 
   export default {
     name:'App',
-    components:{Sidebar, Header,AppMain},
-    setup(){
-      nextTick(()=>{
-        let dom = document.querySelector('.siderbarBox')
-        // console.log(dom);
-        PubSub.subscribe('wider',(msgName,data)=>{
-          dom.style.width=data
-        })
-        PubSub.subscribe('narrow',(msgName,data)=>{
-          dom.style.width=data
-        })
-
-      })
-      
-      
-      return{
-
-      }
-    }
+    components:{ Layout, Login }
+    
   }
 </script>
   
-<style>
-  /* 解决sidebar设置position之后原位置丢失而引起布局的影响的bug */
-  .siderbarBox{
-    width: 54px;
-    display: block;
-    height: 100%;
-    transition: all .2s;
-  }
-  /* .el-scrollbar__view{
-    display: inline-block;
-    width: 100px;
-    height: 100px;
-  } */
-  /* 让布局占满屏幕，没有间隙 */
-  body {
-    display: block;
-    margin: 0px;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
+<style lang="scss">
+  /* 登陆页面背景颜色 */
+  $loginBgColor: #2d3a4b;
+  /* 让app的高占满全屏 */
+  #app{
+    height: 100vh;
   }
   *{
     margin: 0;padding: 0;

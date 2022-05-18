@@ -16,7 +16,6 @@
         nextTick(()=>{
           // 使用nextTick，这样才能获取#xxx元素
           let box = document.querySelector('#xxx')
-          console.log(box);
         })
       })
       // 这样获取不到的

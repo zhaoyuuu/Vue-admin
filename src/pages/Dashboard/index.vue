@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div class='container' ref="container">
       <ul class="cardBox">
         <li class="card" v-for="(card,index) in cardData" :key="index">
           <span class="iconBox">
@@ -19,17 +19,18 @@
 </template>
   
 <script>
-  import {reactive,ref} from 'vue'
+  import {reactive,ref,onMounted, onBeforeUnmount} from 'vue'
   import * as echarts from 'echarts';
   //引入路由函数  **vue3中接收数据**
   import { useRoute } from "vue-router";
   import PubSub from "pubsub-js";
-  import { nextTick, onUnmounted } from '@vue/runtime-core';
+  // import { nextTick, onMounted, onUnmounted } from '@vue/runtime-core';
 
   export default {
     name:'Dashboard',
     setup(){
       const route = useRoute();
+      let container = ref(null)
 
       // card数据
       const cardData = reactive([
@@ -58,15 +59,19 @@
       let tab = route.query.tabName
       PubSub.publish('getTab',tab)
 
+      let myChart1 = undefined
+      let myChart2 = undefined
+      let myChart3 = undefined
+      let myChart4 = undefined
       // 基于准备好的dom，初始化echarts实例
-      nextTick(()=>{
-
+      onMounted(()=>{
+        console.log('我来啦');
         // 折线图
         //#region 
-        var chartDom = document.querySelector('#lineChart');
-        var myChart = echarts.init(chartDom);
-        var option;
-        option = {
+        let chartDom1 = document.querySelector('#lineChart');
+        myChart1 = echarts.init(chartDom1);
+        let option1;
+        option1 = {
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -114,7 +119,7 @@
               emphasis: {
                 focus: 'series'
               },
-              data: [120, 132, 101, 134, 90, 230, 210]
+              data: [320, 132, 101, 134, 90, 230, 210]
             },
             {
               name: '2019',
@@ -162,153 +167,153 @@
             }
           ]
         };
-        option && myChart.setOption(option);
+        option1 && myChart1.setOption(option1);
         //#endregion
 
         // 仪表盘
         //#region   
-      var chartDom = document.querySelectorAll('.smallChart')[0];
-      var myChart1 = echarts.init(chartDom);
-      var option;
-      option = {
-        series: [
-          {
-            type: 'gauge',
-            center: ['50%', '60%'],
-            startAngle: 200,
-            endAngle: -20,
-            min: 0,
-            max: 60,
-            splitNumber: 12,
-            itemStyle: {
-              color: '#FFAB91'
-            },
-            progress: {
-              show: true,
-              width: 30
-            },
-            pointer: {
-              show: false
-            },
-            axisLine: {
-              lineStyle: {
-                width: 30
-              }
-            },
-            axisTick: {
-              distance: -45,
-              splitNumber: 5,
-              lineStyle: {
-                width: 2,
-                color: '#999'
-              }
-            },
-            splitLine: {
-              distance: -52,
-              length: 14,
-              lineStyle: {
-                width: 3,
-                color: '#999'
-              }
-            },
-            axisLabel: {
-              distance: -20,
-              color: '#999',
-              fontSize: 18
-            },
-            anchor: {
-              show: false
-            },
-            title: {
-              show: false
-            },
-            detail: {
-              valueAnimation: true,
-              width: '60%',
-              lineHeight: 40,
-              borderRadius: 8,
-              offsetCenter: [0, '-15%'],
-              fontSize: 40,
-              fontWeight: 'bolder',
-              formatter: '{value} °C',
-              color: 'auto'
-            },
-            data: [
-              {
-                value: 20
-              }
-            ]
-          },
-          {
-            type: 'gauge',
-            center: ['50%', '60%'],
-            startAngle: 200,
-            endAngle: -20,
-            min: 0,
-            max: 60,
-            itemStyle: {
-              color: '#FD7347'
-            },
-            progress: {
-              show: true,
-              width: 8
-            },
-            pointer: {
-              show: false
-            },
-            axisLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            },
-            axisLabel: {
-              show: false
-            },
-            detail: {
-              show: false
-            },
-            data: [
-              {
-                value: 20
-              }
-            ]
-          }
-        ]
-      };
-      setInterval(function () {
-        const random = +(Math.random() * 60).toFixed(2);
-        myChart1.setOption({
+        let chartDom2 = document.querySelectorAll('.smallChart')[0];
+        myChart2 = echarts.init(chartDom2);
+        let option2;
+        option2 = {
           series: [
             {
+              type: 'gauge',
+              center: ['50%', '60%'],
+              startAngle: 200,
+              endAngle: -20,
+              min: 0,
+              max: 60,
+              splitNumber: 12,
+              itemStyle: {
+                color: '#FFAB91'
+              },
+              progress: {
+                show: true,
+                width: 30
+              },
+              pointer: {
+                show: false
+              },
+              axisLine: {
+                lineStyle: {
+                  width: 30
+                }
+              },
+              axisTick: {
+                distance: -45,
+                splitNumber: 5,
+                lineStyle: {
+                  width: 2,
+                  color: '#999'
+                }
+              },
+              splitLine: {
+                distance: -52,
+                length: 14,
+                lineStyle: {
+                  width: 3,
+                  color: '#999'
+                }
+              },
+              axisLabel: {
+                distance: -20,
+                color: '#999',
+                fontSize: 18
+              },
+              anchor: {
+                show: false
+              },
+              title: {
+                show: false
+              },
+              detail: {
+                valueAnimation: true,
+                width: '60%',
+                lineHeight: 40,
+                borderRadius: 8,
+                offsetCenter: [0, '-15%'],
+                fontSize: 40,
+                fontWeight: 'bolder',
+                formatter: '{value} °C',
+                color: 'inherit'
+              },
               data: [
                 {
-                  value: random
+                  value: 20
                 }
               ]
             },
             {
+              type: 'gauge',
+              center: ['50%', '60%'],
+              startAngle: 200,
+              endAngle: -20,
+              min: 0,
+              max: 60,
+              itemStyle: {
+                color: '#FD7347'
+              },
+              progress: {
+                show: true,
+                width: 8
+              },
+              pointer: {
+                show: false
+              },
+              axisLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              splitLine: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+              detail: {
+                show: false
+              },
               data: [
                 {
-                  value: random
+                  value: 20
                 }
               ]
             }
           ]
-        });
-      }, 2000);
-      option && myChart1.setOption(option);
-      //#endregion
+        };
+        setInterval(function () {
+          const random = +(Math.random() * 60).toFixed(2);
+          myChart1.setOption({
+            series: [
+              {
+                data: [
+                  {
+                    value: random
+                  }
+                ]
+              },
+              {
+                data: [
+                  {
+                    value: random
+                  }
+                ]
+              }
+            ]
+          });
+        }, 2000);
+        option2 && myChart2.setOption(option2);
+        //#endregion
 
         // 圆饼图
         //#region 
-        var chartDom = document.querySelectorAll('.smallChart')[1];
-        var myChart2 = echarts.init(chartDom);
-        var option;
-        option = {
+        let chartDom3 = document.querySelectorAll('.smallChart')[1];
+        myChart3 = echarts.init(chartDom3);
+        let option3;
+        option3 = {
           color: ['#e44c27', '#cc6699', '#41b883'],
           tooltip: {
             trigger: 'item'
@@ -350,16 +355,15 @@
             }
           ]
         };
-        option && myChart2.setOption(option);
+        option3 && myChart3.setOption(option3);
         //#endregion
 
         // K线图
         //#region 
-        var chartDom = document.querySelectorAll('.smallChart')[2];
-        var myChart3 = echarts.init(chartDom);
-        var option;
-
-        option = {
+        let chartDom4 = document.querySelectorAll('.smallChart')[2];
+        myChart4 = echarts.init(chartDom4);
+        let option4;
+        option4 = {
           xAxis: {
             data: ['2020-10-24', '2020-10-25', '2021-10-26', '2021-10-27']
           },
@@ -376,14 +380,36 @@
             }
           ]
         };
-        option && myChart3.setOption(option);
+        option4 && myChart4.setOption(option4);
         //#endregion
 
+        // 图像大小自适应
+        window.addEventListener('resize', ()=>{
+          myChart1.resize()
+          myChart2.resize()
+          myChart3.resize()
+          myChart4.resize()
+        })
         
       })
 
+      // 在组件销毁时释放echarts
+      onBeforeUnmount(()=>{
+        console.log('我要走啦');
+        myChart1.clear()
+        myChart1.dispose()
+        myChart2.clear()
+        myChart2.dispose()
+        myChart3.clear()
+        myChart3.dispose()
+        myChart4.clear()
+        myChart4.dispose()
+      })
+      
+
       return {
-        cardData
+        cardData,
+        container
       }
     }
   }
@@ -395,7 +421,7 @@
     padding-top: 20px;
     padding-bottom: 30px;
     #lineChart{
-      margin: 30px auto;
+      margin-top: 20px;
       width: 95%;
       height: 350px;
       background-color: #ffffff;
@@ -403,14 +429,14 @@
     .smallChartsBox,
     .cardBox{
       width: 95%;
-      margin: 0 auto;
-      padding-top: 10px;
+      margin: 0 inherit;
+      padding-top: 20px;
       // 三小块flex布局
       display: flex;
       justify-content: space-between;
       .smallChart,
       .card{
-        flex: 0 1 auto;
+        flex: 0 1 inherit;
         display: inline-block;
         width: 32%;
         background-color: #ffffff;

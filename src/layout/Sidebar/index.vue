@@ -4,7 +4,7 @@
       <ul class="iconList">
         <!-- to加对象的写法，to前面要加冒号: -->
         <router-link v-for="(i,index) in sidebarData" :key="index" :to="i.to" active-class="active">
-          <li :class="i.fontClass" :title="i.title" @click="showChildren">
+          <li :class="i.fontClass" :title="i.title" >
             <span v-show="isShow" class="text">{{i.text}}</span>
             <span v-show="i.title==='error' && isShow" class="rightIcon iconfont icon-xiala1"></span>
           </li>
@@ -110,10 +110,6 @@
         }
       ])
 
-      function showChildren(){
-        alert('!!')
-      }
-
       // 获取窗口高度
       const theHeight = ref(document.documentElement.clientHeight)
       // 描述文字是否出现
@@ -141,7 +137,7 @@
 
       return{
         isShow,theHeight,
-        sidebarData,showChildren
+        sidebarData
       }
     }
   }
