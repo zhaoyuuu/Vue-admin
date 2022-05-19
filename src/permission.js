@@ -8,7 +8,7 @@ const whiteList = ['/login']
 router.beforeEach(async (to,from,next) => {
   // 查看用户是否已经登录
   const hasToken = getToken()
-  console.log('hasToken: ',hasToken);
+  // console.log('路由守卫拦截token: ', hasToken);
 
   if(hasToken){
     if(to.path === '/login'){
@@ -24,21 +24,27 @@ router.beforeEach(async (to,from,next) => {
         const {roles} = await store.dispatch('getInfo')
         console.log('roles: ', roles);
 
-        // 基于roles生成路由表
+        /**
+         * 基于roles生成路由表 
+         * accessRoutes 异步路由中有权限的部分路由
+         */
         const accessRoutes = await store.dispatch('generateRoutes', roles)
+        console.log('accessRoutes: ', accessRoutes);
 
-        router.addRoute(accessRoutes)
+        // 遍历accessRoutes动态添加路由
+        accessRoutes.forEach(route => {
+          router.addRoute(route)
+        })
 
-        next()
+        next({ ...to, replace: true })
 
       }
     }
   } else {
     if(whiteList.indexOf(to.path) >= 0){// 如果要去白名单里的地址，直接放过
-      console.log('放过');
       next()
     } else {
-      next(`/login?1211`)
+      next('/login')
     }
   }
 })

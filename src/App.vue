@@ -1,16 +1,10 @@
 <template>
-    <!-- <Layout/> -->
     <router-view></router-view>
 </template>
   
 <script>
-  import Layout from './layout/index.vue'
-  import Login from './pages/Login/index.vue'
-
   export default {
-    name:'App',
-    components:{ Layout, Login }
-    
+    name:'App'
   }
 </script>
   

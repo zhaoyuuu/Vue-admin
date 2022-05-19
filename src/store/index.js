@@ -44,7 +44,8 @@ export default createStore({
       introduction: '',
       name: '',
       addRoutes: [], //将要动态添加的路由
-      routes: [] //addRoutes + constantRoutes
+      routes: [], //addRoutes + constantRoutes
+
     }
   },
   actions: {
@@ -52,6 +53,7 @@ export default createStore({
     loginByUsername({ commit }, userinfo){
       const { username, password } = userinfo
       axios.post('/my-admin/user/login').then(response => {
+        // console.log('准备去埋token了');
         setToken(response.data)
         commit('SET_TOKEN', response.data)
       })
@@ -93,7 +95,7 @@ export default createStore({
         if(roles === 'admin'){// admin可以看所有的路由
           accessedRoutes = asyncRoutes || []
         } else {// 不是admin，路由要筛选一道
-          accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+          accessedRoutes = filterAsyncRoutes(asyncRoutes, roles) // accessedRoutes是异步路由中有权限的部分路由
         }
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
@@ -104,7 +106,7 @@ export default createStore({
   mutations: {
 
     SET_TOKEN: (state, token) => {
-      // console.log(state.token);
+      // console.log('token埋好了');
       state.token = token
     },
 

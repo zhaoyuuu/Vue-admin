@@ -65,7 +65,7 @@
       let myChart4 = undefined
       // 基于准备好的dom，初始化echarts实例
       onMounted(()=>{
-        console.log('我来啦');
+        // console.log('我来啦');
         // 折线图
         //#region 
         let chartDom1 = document.querySelector('#lineChart');
@@ -395,7 +395,7 @@
 
       // 在组件销毁时释放echarts
       onBeforeUnmount(()=>{
-        console.log('我要走啦');
+        // console.log('我要走啦');
         myChart1.clear()
         myChart1.dispose()
         myChart2.clear()

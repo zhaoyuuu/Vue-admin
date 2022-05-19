@@ -38,8 +38,8 @@
     name: 'Login',
     setup(){
       const router = useRouter()
-      const uname = ref('')
-      const pwd = ref('')
+      const uname = ref('admin')
+      const pwd = ref('111111')
       const unameCheckValue = ref(false)
       const pwdCheckValue = ref(false)
 
@@ -51,19 +51,23 @@
       }
 
       function login(){
-        // 将用户名和密码打包成一个对象
-        const userinfo = {
-          username: uname.value,
-          password: pwd.value
-        }
-        store.dispatch('loginByUsername', userinfo)
-          .then(()=>{ // 成功之后定向到 /layout 
-            console.log('登录成功！！！');
-            router.replace({path: '/'})
-          })
-          .catch(err => {
-            // alert(err) // 登录失败提示错误信息
-          })
+        // console.log('点击了登录');
+        if(!unameCheckValue.value && uname.value.trim() !== '' && !pwdCheckValue.value && pwd.value.trim() !== ''){
+          // 将用户名和密码打包成一个对象
+          const userinfo = {
+            username: uname.value,
+            password: pwd.value
+          }
+          store.dispatch('loginByUsername', userinfo)
+            .then(()=>{ // 成功之后定向到 /layout 
+              // console.log('登录成功！！！');
+              router.replace({path: '/'})
+            })
+            .catch(err => {
+              // alert(err) // 登录失败提示错误信息
+            })
+          }
+        
       }
 
       return{

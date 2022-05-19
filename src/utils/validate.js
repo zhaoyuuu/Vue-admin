@@ -5,6 +5,7 @@
  */
 export function validUsername(str) {
   const valid_map = ['admin', 'editor']
+  // console.log('validValue: ', str);
   return valid_map.indexOf(str) >= 0
 }
 
