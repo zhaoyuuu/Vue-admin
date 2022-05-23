@@ -83,15 +83,15 @@ export const asyncRoutes = [
     ]
   },
   {
-    path:'/charts',
+    path:'/rich-text',
     component: Layout,
     children: [
       {
-        path:'/charts',
-        component:() => import('../pages/Charts'),
+        path:'/rich-text',
+        component:() => import('../pages/RichText'),
         meta: {
-          text: 'Charts',
-          className: 'iconfont icon-chart'
+          text: 'Rich Text',
+          className: 'iconfont icon-richtext'
         }
       }
     ]

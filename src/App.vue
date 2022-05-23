@@ -32,7 +32,7 @@
   }
   .el-main{
     padding: 0;
-    background-color: #eff1f4;
+    // background-color: #eff1f4;
     /* 隐藏默认滚动条 */
     overflow-y: hidden;
     overflow-x: hidden;

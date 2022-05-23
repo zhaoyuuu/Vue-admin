@@ -24,12 +24,12 @@ const users = {
   }
 }
 
-let loginData = 'admin-token'
+// let loginData = 'admin-token'
 
 Mock.mock(/my-admin\/user\/login/, 'post', () => { //三个参数。第一个：路径，第二个：请求方式post/get，第三个：回调，返回值
-    return loginData
+    return tokens
 })
 
-Mock.mock(/my-admin\/user\/info/, 'get', (loginData) => {
+Mock.mock(/my-admin\/user\/info/, 'get', () => {
   return users
 })

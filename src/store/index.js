@@ -50,21 +50,23 @@ export default createStore({
   },
   actions: {
     // 登录埋cookie
-    loginByUsername({ commit }, userinfo){
+    loginByUsername({ commit, state }, userinfo){
       const { username, password } = userinfo
       axios.post('/my-admin/user/login').then(response => {
-        // console.log('准备去埋token了');
-        setToken(response.data)
-        commit('SET_TOKEN', response.data)
+        // console.log('response: ', response.data[username].token);
+        const {token} = response.data[username]
+        setToken(token)
+        commit('SET_TOKEN', token)
       })
     },
 
     // 获取用户信息
-    getInfo({commit, state}){
+    getInfo({commit}){
       return new Promise((resolve,reject)=>{
         axios.get('/my-admin/user/info').then(response => {
           const token = getToken()
-          const data = response.data[token]
+          // console.log('getinfo: ', token);
+          const data = response.data[token]  // data：用户信息对象
 
           if(!data){
             reject('Verification failed, please Login again.')

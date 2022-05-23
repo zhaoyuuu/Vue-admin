@@ -1,20 +1,20 @@
 <template>
   <div class='container' ref="container">
-      <ul class="cardBox">
-        <li class="card" v-for="(card,index) in cardData" :key="index">
-          <span class="iconBox">
-            <span :class="card.iconClass"></span>
-          </span>
-          <span class="cardText">{{card.text}}</span>
-          <span class="cardNum">{{card.num}}</span>
-        </li>
-      </ul>
-     <div id="lineChart"></div>
-     <div class="smallChartsBox">
-       <span class="smallChart"></span>
-       <span class="smallChart"></span>
-       <span class="smallChart"></span>
-     </div>
+    <ul class="cardBox">
+      <li class="card" v-for="(card,index) in cardData" :key="index">
+        <span class="iconBox">
+          <span :class="card.iconClass"></span>
+        </span>
+        <span class="cardText">{{card.text}}</span>
+        <span class="cardNum">{{card.num}}</span>
+      </li>
+    </ul>
+    <div id="lineChart"></div>
+    <div class="smallChartsBox">
+      <span class="smallChart"></span>
+      <span class="smallChart"></span>
+      <span class="smallChart"></span>
+    </div>
   </div>
 </template>
   
@@ -384,12 +384,26 @@
         //#endregion
 
         // 图像大小自适应
-        window.addEventListener('resize', ()=>{
-          myChart1.resize()
-          myChart2.resize()
-          myChart3.resize()
-          myChart4.resize()
-        })
+        /**
+         * 防抖
+         * @param {*} event 
+         * @param {*} wait 
+         */
+        function antiShake(event, wait){
+          let timer
+          return function(){
+            if(timer){
+              clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+              event()
+            }, wait);
+          }
+        }
+        window.addEventListener('resize', antiShake(myChart1.resize, 300))
+        window.addEventListener('resize', antiShake(myChart2.resize, 300))
+        window.addEventListener('resize', antiShake(myChart3.resize, 300))
+        window.addEventListener('resize', antiShake(myChart4.resize, 300))
         
       })
 
@@ -418,8 +432,10 @@
   
 <style scoped lang='scss'>
   .container{
-    padding-top: 20px;
-    padding-bottom: 30px;
+    // padding-top: 20px;
+    // padding-left: 30px;
+    // padding-bottom: 30px;
+    // background-color: #eff1f4;
     #lineChart{
       margin-top: 20px;
       width: 95%;
@@ -430,7 +446,7 @@
     .cardBox{
       width: 95%;
       margin: 0 inherit;
-      padding-top: 20px;
+      // padding-top: 20px;
       // 三小块flex布局
       display: flex;
       justify-content: space-between;

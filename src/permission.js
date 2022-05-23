@@ -29,7 +29,7 @@ router.beforeEach(async (to,from,next) => {
          * accessRoutes 异步路由中有权限的部分路由
          */
         const accessRoutes = await store.dispatch('generateRoutes', roles)
-        console.log('accessRoutes: ', accessRoutes);
+        // console.log('accessRoutes: ', accessRoutes);
 
         // 遍历accessRoutes动态添加路由
         accessRoutes.forEach(route => {
