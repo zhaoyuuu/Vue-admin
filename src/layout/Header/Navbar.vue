@@ -6,7 +6,11 @@
         <span @click="pullBack" class="iconfont icon-lachu" v-show="!isIconShow"></span>
      </div>
      <!-- 面包屑 -->
-     <div class="bread_crumb">BreadCrumb</div>
+    <el-breadcrumb :separator-icon="ArrowRight">
+      <el-breadcrumb-item :to="{ path: '/' }">Dashboard</el-breadcrumb-item>
+      <el-breadcrumb-item>Table</el-breadcrumb-item>
+    </el-breadcrumb>
+
      <div class="rightMenu">
        <RightMenu/>
      </div>
@@ -16,13 +20,17 @@
 <script>
   import {ref} from 'vue'
   import RightMenu from './RightMenu.vue'
-  // 引入消息订阅库
-  import pubsub from 'pubsub-js'
+  import pubsub from 'pubsub-js'  // 引入消息订阅库
+  import { ArrowRight } from '@element-plus/icons-vue'  // 面包屑icon
+  import router from '../../router'
+  // import filterRoutesFunc from '../../utils/filterRoutes'  // 筛选路由
+  // import store from '../../store'
 
   export default {
     name:'Navbar',
     components:{RightMenu},
     setup(){
+      console.log(router);
       // 拉出拉回图标是否显现
       let isIconShow = ref(true)
 
@@ -37,10 +45,17 @@
         isIconShow.value = true
       }
 
+      // 筛选出路由
+      // const routes = store.state.routes  // 所有有权限的路由
+      // const filterRoutes = filterRoutesFunc(routes)
+      // console.log(filterRoutes);
+
       return{
         pullOut,
         isIconShow,
-        pullBack
+        pullBack,
+        ArrowRight,
+        // filterRoutes
       }
     }
   }
@@ -65,7 +80,6 @@
         display: inline-block;
         width: 50px!important;
         font-size: 20px;
-        // background-color: coral;
       }
       .icon-lachu{
         // 加important以消除element.style默认宽度的影响
@@ -86,5 +100,10 @@
       height: 50px;
       float: right;
     }
+  }
+  // 面包屑
+  .el-breadcrumb {
+    line-height: 50px;
+    display: inline-block;
   }
 </style>

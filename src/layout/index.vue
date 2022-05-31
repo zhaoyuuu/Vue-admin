@@ -1,13 +1,13 @@
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside style="backgroundColor:skyblue;">
+      <el-aside>
         <span class="siderbarBox">
           <Sidebar/>
         </span>
       </el-aside>
       <el-container>
-        <el-header style="backgroundColor:coral" height="83px">
+        <el-header style="backgroundColor:coral" height="50px">
           <Header/>
         </el-header>
         <el-main>

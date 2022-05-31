@@ -1,5 +1,5 @@
-const arr = [1,2,3]
-const arr2 = [4,5,6]
-const arr3 = arr.concat(arr2)
-console.log(arr);
-console.log(arr3);
+let str = '我爱你宝宝'
+for(let i=0; i<10; i++){
+  str = str.concat(str)
+}
+console.log(str);

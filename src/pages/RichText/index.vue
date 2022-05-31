@@ -1,21 +1,24 @@
 <template>
   <div class='container'>
-    <h1 class="title1">TinyMCE</h1>
-    <h1 class="title2">富文本编辑器</h1>
+    <span class="iconfont icon-richtext"></span>
+    <h1 class="title1">富文本编辑器</h1>
+    <h1 class="title2">基于<a href="https://github.com/tinymce/tinymce" target="blank">TinyMCE</a></h1>
+
+    <h1 v-show="isLoading">富文本加载中...</h1>
 
     <textarea>
-      Welcome to TinyMCE!
+      Welcome to my Rich-Text!
     </textarea>
   </div>
 </template>
   
 <script>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   export default {
     name:'RichText',
     setup() {
-      
+      let isLoading = ref(true)
       
       onMounted(() => {
 
@@ -31,31 +34,45 @@
           toolbar_mode: 'floating',
           tinycomments_mode: 'embedded',
           tinycomments_author: 'Author name',
-          width: '80%'
-        });
+          width: '90%'
+        }).then(()=>{
+          isLoading.value = false
+        })
+
+        
 
       })
 
       return {
-
+        isLoading
       }
     }
   }
 </script>
   
 <style lang="scss" scoped>
-  .container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .container {
+    padding-left: 50px;
+  }
+  .icon-richtext {
+    color: $h1Color;
+    font-size: 30px;
+    padding-left: 20px;
+    padding-right: 10px;
   }
   .title1{
-    font-size: 40px;
+    display: inline-block;
+    font-size: 30px;
+    color: $h1Color;
     margin-bottom: 15px;
   }
   .title2{
+    padding-left: 20px;
     font-size: 20px;
     margin-bottom: 20px;
+    a {
+      text-decoration: none;
+    }
   }
 </style>
 <style>

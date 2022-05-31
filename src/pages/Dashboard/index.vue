@@ -1,5 +1,6 @@
 <template>
   <div class='container' ref="container">
+    <h1>Dashboard</h1>
     <ul class="cardBox">
       <li class="card" v-for="(card,index) in cardData" :key="index">
         <span class="iconBox">
@@ -20,17 +21,16 @@
   
 <script>
   import {reactive,ref,onMounted, onBeforeUnmount} from 'vue'
-  import * as echarts from 'echarts';
+  // import * as echarts from 'echarts';
   //引入路由函数  **vue3中接收数据**
   import { useRoute } from "vue-router";
   import PubSub from "pubsub-js";
-  // import { nextTick, onMounted, onUnmounted } from '@vue/runtime-core';
 
   export default {
     name:'Dashboard',
     setup(){
       const route = useRoute();
-      let container = ref(null)
+      const container = ref(null) // 拿到container节点
 
       // card数据
       const cardData = reactive([
@@ -72,101 +72,120 @@
         myChart1 = echarts.init(chartDom1);
         let option1;
         option1 = {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              label: {
-                backgroundColor: '#6a7985'
-              }
-            }
-          },
-          legend: {
-            data: ['2018', '2019', '2020', '2021', '2022']
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: [
-            {
-              type: 'category',
-              boundaryGap: false,
-              data: [
-                'January',
-                'March',
-                'April',
-                'June',
-                'August',
-                'September',
-                'November'
-              ]
-            }
-          ],
-          yAxis: [
-            {
-              type: 'value'
-            }
-          ],
-          series: [
-            {
-              name: '2018',
-              type: 'line',
-              stack: 'Total',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-              data: [320, 132, 101, 134, 90, 230, 210]
-            },
-            {
-              name: '2019',
-              type: 'line',
-              stack: 'Total',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-              data: [220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-              name: '2020',
-              type: 'line',
-              stack: 'Total',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-              data: [150, 232, 201, 154, 190, 330, 410]
-            },
-            {
-              name: '2021',
-              type: 'line',
-              stack: 'Total',
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-              data: [320, 332, 301, 334, 390, 330, 320]
-            },
-            {
-              name: '2022',
-              type: 'line',
-              stack: 'Total',
-              label: {
-                show: true,
-                position: 'top'
-              },
-              areaStyle: {},
-              emphasis: {
-                focus: 'series'
-              },
-              data: [820, 932, 901, 934, 1290, 1330, 1320]
-            }
-          ]
-        };
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {},
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: 'Direct',
+      type: 'bar',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [320, 332, 301, 334, 390, 330, 320]
+    },
+    {
+      name: 'Email',
+      type: 'bar',
+      stack: 'Ad',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [120, 132, 101, 134, 90, 230, 210]
+    },
+    {
+      name: 'Union Ads',
+      type: 'bar',
+      stack: 'Ad',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [220, 182, 191, 234, 290, 330, 310]
+    },
+    {
+      name: 'Video Ads',
+      type: 'bar',
+      stack: 'Ad',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [150, 232, 201, 154, 190, 330, 410]
+    },
+    {
+      name: 'Search Engine',
+      type: 'bar',
+      data: [862, 1018, 964, 1026, 1679, 1600, 1570],
+      emphasis: {
+        focus: 'series'
+      },
+      markLine: {
+        lineStyle: {
+          type: 'dashed'
+        },
+        data: [[{ type: 'min' }, { type: 'max' }]]
+      }
+    },
+    {
+      name: 'Baidu',
+      type: 'bar',
+      barWidth: 5,
+      stack: 'Search Engine',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [620, 732, 701, 734, 1090, 1130, 1120]
+    },
+    {
+      name: 'Google',
+      type: 'bar',
+      stack: 'Search Engine',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [120, 132, 101, 134, 290, 230, 220]
+    },
+    {
+      name: 'Bing',
+      type: 'bar',
+      stack: 'Search Engine',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [60, 72, 71, 74, 190, 130, 110]
+    },
+    {
+      name: 'Others',
+      type: 'bar',
+      stack: 'Search Engine',
+      emphasis: {
+        focus: 'series'
+      },
+      data: [62, 82, 91, 84, 109, 110, 120]
+    }
+  ]
+};
+
         option1 && myChart1.setOption(option1);
         //#endregion
 
@@ -286,7 +305,7 @@
         };
         setInterval(function () {
           const random = +(Math.random() * 60).toFixed(2);
-          myChart1.setOption({
+          myChart2.setOption({
             series: [
               {
                 data: [
@@ -305,6 +324,7 @@
             ]
           });
         }, 2000);
+        
         option2 && myChart2.setOption(option2);
         //#endregion
 
@@ -314,47 +334,40 @@
         myChart3 = echarts.init(chartDom3);
         let option3;
         option3 = {
-          color: ['#e44c27', '#cc6699', '#41b883'],
-          tooltip: {
-            trigger: 'item'
-          },
-          legend: {
-            top: '5%',
-            left: 'center'
-          },
-          series: [
-            {
-              name: 'Access From',
-              type: 'pie',
-              radius: ['40%', '70%'],
-              avoidLabelOverlap: false,
-              itemStyle: {
-                borderRadius: 10,
-                borderColor: '#fff',
-                borderWidth: 2
-              },
-              label: {
-                show: false,
-                position: 'center'
-              },
-              emphasis: {
-                label: {
-                  show: true,
-                  fontSize: '40',
-                  fontWeight: 'bold'
-                }
-              },
-              labelLine: {
-                show: false
-              },
-              data: [
-                { value: 20, name: 'html' },
-                { value: 30, name: 'scss' },
-                { value: 50, name: 'vue' }
-              ]
-            }
-          ]
-        };
+  legend: {
+    top: 'bottom'
+  },
+  toolbox: {
+    show: true,
+    feature: {
+      mark: { show: true },
+      dataView: { show: true, readOnly: false },
+      restore: { show: true }
+    }
+  },
+  series: [
+    {
+      name: 'Nightingale Chart',
+      type: 'pie',
+      radius: [20, 100],
+      center: ['50%', '50%'],
+      roseType: 'area',
+      itemStyle: {
+        borderRadius: 8
+      },
+      data: [
+        { value: 40, name: 'vue' },
+        { value: 38, name: 'element-ui' },
+        { value: 32, name: 'scss' },
+        { value: 30, name: 'echarts' },
+        { value: 28, name: 'iconfont' },
+        { value: 26, name: 'mockjs' },
+        { value: 22, name: 'es6' },
+        { value: 18, name: 'html' }
+      ]
+    }
+  ]
+};
         option3 && myChart3.setOption(option3);
         //#endregion
 
@@ -364,22 +377,38 @@
         myChart4 = echarts.init(chartDom4);
         let option4;
         option4 = {
-          xAxis: {
-            data: ['2020-10-24', '2020-10-25', '2021-10-26', '2021-10-27']
-          },
-          yAxis: {},
-          series: [
-            {
-              type: 'candlestick',
-              data: [
-                [20, 34, 10, 38],
-                [40, 35, 30, 50],
-                [31, 38, 33, 44],
-                [38, 15, 5, 42]
-              ]
-            }
-          ]
-        };
+  legend: {
+    data: ['Allocated Budget', 'Actual Spending']
+  },
+  radar: {
+    // shape: 'circle',
+    indicator: [
+      { name: 'Sales', max: 6500 },
+      { name: 'Administration', max: 16000 },
+      { name: 'Information Technology', max: 30000 },
+      { name: 'Customer Support', max: 38000 },
+      { name: 'Development', max: 52000 },
+      { name: 'Marketing', max: 25000 }
+    ]
+  },
+  series: [
+    {
+      name: 'Budget vs spending',
+      type: 'radar',
+      data: [
+        {
+          value: [4200, 3000, 20000, 35000, 50000, 18000],
+          name: 'Allocated Budget'
+        },
+        {
+          value: [5000, 14000, 28000, 26000, 42000, 21000],
+          name: 'Actual Spending'
+        }
+      ]
+    }
+  ]
+};
+        
         option4 && myChart4.setOption(option4);
         //#endregion
 
@@ -400,10 +429,13 @@
             }, wait);
           }
         }
-        window.addEventListener('resize', antiShake(myChart1.resize, 300))
-        window.addEventListener('resize', antiShake(myChart2.resize, 300))
-        window.addEventListener('resize', antiShake(myChart3.resize, 300))
-        window.addEventListener('resize', antiShake(myChart4.resize, 300))
+        // 监听元素大小变化
+        const elementResizeDetectorMaker = require("element-resize-detector");
+        const erd = elementResizeDetectorMaker()
+        erd.listenTo(container.value, antiShake(myChart1.resize, 300) )
+        erd.listenTo(container.value, antiShake(myChart2.resize, 300) )
+        erd.listenTo(container.value, antiShake(myChart3.resize, 300) )
+        erd.listenTo(container.value, antiShake(myChart4.resize, 300) )
         
       })
 
@@ -422,8 +454,7 @@
       
 
       return {
-        cardData,
-        container
+        cardData, container
       }
     }
   }
@@ -432,19 +463,21 @@
   
 <style scoped lang='scss'>
   .container{
-    // padding-top: 20px;
-    // padding-left: 30px;
-    // padding-bottom: 30px;
-    // background-color: #eff1f4;
+    h1 {
+      color: $h1Color;
+      font-size: 30px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
     #lineChart{
       margin-top: 20px;
       width: 95%;
-      height: 350px;
+      height: 500px;
       background-color: #ffffff;
     }
     .smallChartsBox,
     .cardBox{
       width: 95%;
+      padding-top: 20px;
       margin: 0 inherit;
       // padding-top: 20px;
       // 三小块flex布局

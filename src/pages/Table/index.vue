@@ -1,5 +1,6 @@
 <template>
   <div class='container'>
+    <h1>这些表格可以拖拽哦~</h1>
       <el-table :data="tableData" stripe border>
         <el-table-column prop="id" label="ID" width="100" align="center" />
         <el-table-column prop="author" label="Author" width="150" align="center" />
@@ -17,9 +18,7 @@
         <!-- actions -->
         <el-table-column prop="actions" label="Actions" width="180" align="center" >
           <!-- <el-button type="primary" :icon="Edit">edit</el-button> -->
-          <span>
-            <el-button color=" #95d475">OK</el-button>
-          </span>
+          <el-button color=" #95d475">OK</el-button>
         </el-table-column>>
       </el-table>
 
@@ -37,7 +36,6 @@
 </template>
   
 <script>
-  import Sortable from 'sortablejs'
   import { onMounted, reactive, ref } from '@vue/runtime-core'
   import { Edit } from '@element-plus/icons-vue'
 
@@ -146,6 +144,9 @@
 </script>
   
 <style scoped lang='scss'>
+  h1 {
+    color: rgb(89, 87, 87);
+  }
   .icon-drag{
     font-size: 26px;
     &:hover{
@@ -167,6 +168,9 @@
   }
   .el-button{
     color: #fff;
+  }
+  h1{
+    margin-bottom: 20px;
   }
 </style>
 

@@ -9,8 +9,7 @@
 </script>
   
 <style lang="scss">
-  /* 登陆页面背景颜色 */
-  $loginBgColor: #2d3a4b;
+  
   /* 让app的高占满全屏 */
   #app{
     height: 100vh;
@@ -20,7 +19,7 @@
   }
   /* Header左右不留间隙 */
   .el-header {
-    --el-header-padding: 0px;
+    --el-header-padding: 0px!important;
   }
   /* 设置盒子border-box,避免盒子被撑大 */
   div {
@@ -28,10 +27,10 @@
   }
   /* 取消默认边栏宽度300px */
   .el-aside {
-    --el-aside-width: auto;
+    --el-aside-width: auto!important;
   }
   .el-main{
-    padding: 0;
+    padding: 0!important;
     // background-color: #eff1f4;
     /* 隐藏默认滚动条 */
     overflow-y: hidden;

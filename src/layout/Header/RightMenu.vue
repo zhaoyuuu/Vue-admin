@@ -1,20 +1,44 @@
 <template>
   <div class='container'>
+
     <span class="iconfont icon-fangdajing"></span>
+
     <span class="iconfont icon-max"></span>
+
     <span @click="changeLang" >
       <!-- 切换中英文时加上success提示 -->
       <span :plain="true" @click="open2" class="iconfont icon-zhongwen" v-show="isLangShow"></span>
       <span :plain="true" @click="open2" class="iconfont icon-yingwen" v-show="!isLangShow"></span>
     </span>
+
     <img src="../../icons/user-avatar/user-avatar.gif" alt="user_avatar" title="user-avatar">
-    <span class="iconfont icon-xiala"></span>
+
+    <!-- 下拉菜单 -->
+    <el-dropdown>
+      <span class="el-dropdown-link">
+        <span class="iconfont icon-xiala"></span>
+      </span>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item>
+            <a href="https://github.com/zhaoyuuu/Vue-element-admin" target="_blank" rel="noopener noreferrer">
+              Github
+            </a>
+          </el-dropdown-item>
+          <el-dropdown-item @click="logout">
+            Log Out
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
+
   </div>
 </template>
   
 <script>
   import {ref} from 'vue'
-  import { ElMessage } from 'element-plus'
+  import { ElMessage } from 'element-plus' 
+  import store from '../../store'
 
   export default {
     name:'RightMenu',
@@ -32,10 +56,17 @@
         })
       }
 
+      // logout
+      function logout(){
+        store.dispatch('logout')
+        window.location.reload(); 
+      }
+
       return {
         isLangShow,
         changeLang,
-        open2
+        open2,
+        logout
       }
     }
   }

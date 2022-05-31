@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-     <h1>Todo</h1>
+     <h1>Only ADMIN has the permission to see this.</h1>
   </div>
 </template>
   
@@ -14,5 +14,7 @@
 </script>
   
 <style scoped lang='scss'>
-  
+  h1 {
+    color: $h1Color;
+  }
 </style>

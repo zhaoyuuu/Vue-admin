@@ -90,7 +90,7 @@ export const asyncRoutes = [
         path:'/rich-text',
         component:() => import('../pages/RichText'),
         meta: {
-          text: 'Rich Text',
+          text: 'RichText',
           className: 'iconfont icon-richtext'
         }
       }
@@ -111,15 +111,16 @@ export const asyncRoutes = [
     ]
   },
   {
-    path:'/component',
+    path:'/markdown',
     component: Layout,
     children: [
       {
-        path:'/component',
-        component:() => import('../pages/Component'),
+        name: 'Markdown',
+        path:'/markdown',
+        component:() => import('../pages/Markdown'),
         meta: {
-          text: 'Component',
-          className: 'iconfont icon-component'
+          text: 'Markdown',
+          className: 'iconfont icon-markdown'
         }
       }
     ]

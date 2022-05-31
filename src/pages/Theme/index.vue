@@ -1,6 +1,6 @@
 <template>
   <div class='container'>
-     <h1>Theme</h1>
+     <h1>Only ADMIN has the permission to see this.</h1>
   </div>
 </template>
   

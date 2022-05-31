@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import { getToken, setToken, removeToken } from '../utils/auth'
-import {constantRoutes, asyncRoutes} from '../router'
+import {constantRoutes, asyncRoutes, } from '../router'
 
 /**
  * 依据路由的meta来判断路由权限
@@ -102,6 +102,13 @@ export default createStore({
         commit('SET_ROUTES', accessedRoutes)
         resolve(accessedRoutes)
       })
+    },
+
+    // logout
+    logout({ commit }){
+      commit('SET_ROLES', [])
+      commit('SET_TOKEN', '')
+      removeToken()
     }
 
   },
