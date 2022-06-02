@@ -60,6 +60,7 @@
       function logout(){
         store.dispatch('logout')
         window.location.reload(); 
+        // router.replace('/login')
       }
 
       return {

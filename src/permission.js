@@ -1,11 +1,15 @@
 import router from './router'
 import store from './store'
 import { getToken } from './utils/auth'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 // 免登录白名单，避免重定向死循环
 const whiteList = ['/login']
 
 router.beforeEach(async (to,from,next) => {
+  // 进度条
+  NProgress.start();
   // 查看用户是否已经登录
   const hasToken = getToken()
   // console.log('路由守卫拦截token: ', hasToken);
@@ -46,5 +50,11 @@ router.beforeEach(async (to,from,next) => {
     } else {
       next('/login')
     }
+  }
+})
+
+router.afterEach((to, from)=>{
+  if(to.path !== '/rich-text'){
+    NProgress.done()
   }
 })

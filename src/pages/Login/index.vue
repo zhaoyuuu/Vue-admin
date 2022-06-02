@@ -59,13 +59,19 @@
             password: pwd.value
           }
           store.dispatch('loginByUsername', userinfo)
-            .then(()=>{ // 成功之后定向到 /layout 
-              // console.log('登录成功！！！');
-              router.replace({path: '/'})
-            })
+            // .then(()=>{ // 成功之后定向到 /layout 
+            //   console.log('登录成功！！！');
+            //   router.replace({path: '/'})
+            // })
             .catch(err => {
-              // alert(err) // 登录失败提示错误信息
+              console.log(err) // 登录失败提示错误信息
             })
+            // 设定时器是为了vuex的操作先执行完（获取token之后）再路由跳转
+            setTimeout(() => {
+              console.log('登录成功');
+              router.replace({path: '/'})
+            }, 100);
+
           }
         
       }

@@ -53,7 +53,7 @@ export default createStore({
     loginByUsername({ commit, state }, userinfo){
       const { username, password } = userinfo
       axios.post('/my-admin/user/login').then(response => {
-        // console.log('response: ', response.data[username].token);
+        console.log('response: ', response.data[username].token);
         const {token} = response.data[username]
         setToken(token)
         commit('SET_TOKEN', token)
@@ -91,7 +91,7 @@ export default createStore({
     },
 
     // generateRoutes 动态生成路由表
-    generateRoutes({commit}, roles){
+    generateRoutes({commit, state}, roles){
       return new Promise((resolve,reject) => {
         let accessedRoutes
         if(roles === 'admin'){// admin可以看所有的路由

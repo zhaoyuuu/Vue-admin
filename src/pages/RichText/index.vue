@@ -4,8 +4,6 @@
     <h1 class="title1">富文本编辑器</h1>
     <h1 class="title2">基于<a href="https://github.com/tinymce/tinymce" target="blank">TinyMCE</a></h1>
 
-    <h1 v-show="isLoading">富文本加载中...</h1>
-
     <textarea>
       Welcome to my Rich-Text!
     </textarea>
@@ -14,11 +12,12 @@
   
 <script>
   import { onMounted, ref } from 'vue';
+  import NProgress from 'nprogress'
+  import 'nprogress/nprogress.css'
 
   export default {
     name:'RichText',
     setup() {
-      let isLoading = ref(true)
       
       onMounted(() => {
 
@@ -36,7 +35,7 @@
           tinycomments_author: 'Author name',
           width: '90%'
         }).then(()=>{
-          isLoading.value = false
+          NProgress.done()
         })
 
         
@@ -44,7 +43,7 @@
       })
 
       return {
-        isLoading
+        
       }
     }
   }
